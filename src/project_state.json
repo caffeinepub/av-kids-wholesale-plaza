@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 11,
+  "summary": "Shop website for “Av Kids Wholesale Plaza” that lets customers browse products and place orders (no real payment; show total estimate), collects customer details (name, phone, email, full address), includes an admin login (Internet Identity) to add/remove products, and displays business contact details in a footer and a dedicated Contact Us page. Use the uploaded image as the site logo everywhere (header/admin area/favicon as applicable) and grant admin rights to the currently logged-in Internet Identity principal.",
+  "architectural_notes": [
+    "Shop name/branding set to “Av Kids Wholesale Plaza”.",
+    "Admin rights should be granted to the user’s currently logged-in Internet Identity principal (provisioning step).",
+    "Use the user-uploaded image as the primary logo across the site (including header and other logo placements such as favicon/admin area, as applicable).",
+    "Add a site-wide footer section with business contact details and a dedicated Contact Us page. Store contact details (phone/WhatsApp, address, Instagram) as configurable content.",
+    "Add a separate dedicated Admin Login page/route; after Internet Identity sign-in, only admins may proceed into admin area and non-admins should be blocked (and/or admin entry points hidden)."
+  ],
+  "known_issues": [
+    "Contact details requested include a business address, but the address value has not been provided yet.",
+    "User reports they are unable to log in as administrator / add products (admin access not working as expected).",
+    "Admin-only product management (add products) page is not visible/accessible to the user even when they report being logged in as administrator (likely routing/authorization/UI visibility issue)."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-add-admin-authentication-authorization-using-internet-identity-so-that-only-admins-can-add-remove-products-provide-backend-methods-to-a-read-whether-the-caller-is-an-admin-and-b-restrict-product-write-operations-to-admins-define-an-initial-admin-policy-suitable-for-first-deploy-e-g-set-admin-on-first-call-by-an-authenticated-principal-or-use-a-configured-allowlist-and-document-it-in-code-comments",
+      "title": "Add admin authentication/authorization using Internet Identity so that only admins can add/remove products.\n- Provide backend methods to: (a) read whether the caller is an admin, and (b) restrict product write operations to admins.\n- Define an initial admin policy suitable for first deploy (e.g., set admin on first call by an authenticated principal, or use a configured allowlist) and document it in code comments.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-customer-facing-product-catalog-ui-display-product-name-price-image-and-description-support-viewing-product-details-and-selecting-quantity-for-ordering-handle-empty-state-no-products-gracefully",
+      "title": "Build the customer-facing product catalog UI.\n- Display product name, price, image, and description.\n- Support viewing product details and selecting quantity for ordering.\n- Handle empty state (no products) gracefully.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-order-placement-flow-no-real-payment-that-collects-customer-details-and-shows-a-total-estimate-customer-fields-name-phone-email-full-address-no-payment-details-are-collected-show-a-clear-total-estimate-computed-from-selected-product-quantities-and-prices-submit-the-order-to-the-backend-and-show-a-success-confirmation",
+      "title": "Implement order placement flow (no real payment) that collects customer details and shows a total estimate.\n- Customer fields: name, phone, email, full address\n- No payment details are collected\n- Show a clear total estimate computed from selected product quantities and prices\n- Submit the order to the backend and show a success confirmation",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-area-in-the-frontend-for-product-management-admin-can-add-a-product-with-name-price-image-upload-or-url-description-admin-can-remove-existing-products-use-react-query-for-fetching-mutations-and-invalidate-queries-appropriately",
+      "title": "Create an admin area in the frontend for product management.\n- Admin can add a product with: name, price, image (upload or URL), description\n- Admin can remove existing products\n- Use React Query for fetching/mutations and invalidate queries appropriately",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-view-to-review-placed-orders-show-list-of-orders-with-created-date-time-customer-name-phone-email-full-address-items-and-total-estimate-access-restricted-to-admins",
+      "title": "Add an admin view to review placed orders.\n- Show list of orders with created date/time, customer name, phone, email, full address, items, and total estimate\n- Access restricted to admins",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-coherent-visual-theme-for-the-entire-app-colors-typography-spacing-component-styling-suitable-for-a-modern-retail-shop-use-tailwind-existing-ui-component-library-keep-all-user-facing-text-in-english-ensure-responsive-layout-for-mobile-and-desktop",
+      "title": "Define and apply a coherent visual theme for the entire app (colors, typography, spacing, component styling) suitable for a modern retail shop.\n- Use Tailwind + existing UI component library\n- Keep all user-facing text in English\n- Ensure responsive layout for mobile and desktop",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-required-static-images-and-render-them-from-frontend-static-assets-add-generated-images-under-frontend-public-assets-generated-and-use-them-in-the-ui-logo-hero-placeholders",
+      "title": "Generate required static images and render them from frontend static assets.\n- Add generated images under frontend/public/assets/generated and use them in the UI (logo, hero, placeholders)",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-shop-branding-text-to-use-the-name-av-kids-wholesale-plaza-in-all-user-facing-locations-where-the-generic-name-shop-or-similar-placeholder-text-is-shown-at-minimum-header-brand-text-homepage-hero-title-tagline-and-the-html-document-title",
+      "title": "Update the shop branding text to use the name “Av Kids Wholesale Plaza” in all user-facing locations where the generic name “Shop” or similar placeholder text is shown (at minimum: header brand text, homepage hero title/tagline, and the HTML document title).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-site-logo-everywhere-with-the-uploaded-logo-image-update-the-header-logo-to-use-the-uploaded-image-and-add-a-favicon-based-on-the-same-uploaded-image",
+      "title": "Replace the current site logo everywhere with the uploaded logo image: update the header logo to use the uploaded image and add a favicon based on the same uploaded image.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provision-admin-rights-for-the-currently-logged-in-internet-identity-principal-ensure-there-is-a-backend-mechanism-to-initialize-the-first-admin-or-to-grant-admin-status-to-the-current-caller-when-allowed-and-update-the-frontend-so-that-when-the-user-is-logged-in-with-that-identity-they-become-an-admin-and-can-access-admin-pages",
+      "title": "Provision admin rights for the currently logged-in Internet Identity principal: ensure there is a backend mechanism to initialize the first admin (or to grant admin status to the current caller when allowed), and update the frontend so that when the user is logged in with that identity they become an admin and can access admin pages.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-public-contact-us-page-that-displays-the-business-contact-details-provided-by-the-user-phone-9310843810-whatsapp-9310843810-and-instagram-https-www-instagram-com-kids-wholesale-plaza-igsh-mwfsdgpon2w1nxp0cw",
+      "title": "Add a new public “Contact Us” page that displays the business contact details provided by the user: Phone: 9310843810, WhatsApp: 9310843810, and Instagram: https://www.instagram.com/kids_wholesale_plaza?igsh=MWFsdGpoN2w1NXp0cw==.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-footer-to-include-a-contact-section-showing-phone-whatsapp-number-9310843810-and-a-clickable-instagram-link-to-https-www-instagram-com-kids-wholesale-plaza-igsh-mwfsdgpon2w1nxp0cw-and-include-a-contact-us-link-that-navigates-to-the-new-contact-us-page",
+      "title": "Update the site footer to include a contact section showing Phone/WhatsApp number 9310843810 and a clickable Instagram link to https://www.instagram.com/kids_wholesale_plaza?igsh=MWFsdGpoN2w1NXp0cw==, and include a “Contact Us” link that navigates to the new Contact Us page.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-handle-the-requested-address-contact-detail-without-inventing-an-address-value-add-a-single-place-in-the-frontend-to-configure-a-business-address-string-later-and-conditionally-render-the-address-on-the-contact-us-page-and-footer-only-when-a-non-empty-address-is-provided",
+      "title": "Handle the requested “address” contact detail without inventing an address value: add a single place in the frontend to configure a business address string later, and conditionally render the address on the Contact Us page and footer only when a non-empty address is provided.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-separate-dedicated-admin-login-page-route-that-uses-internet-identity-authentication-and-is-intended-specifically-for-administrators",
+      "title": "Add a separate dedicated admin login page/route that uses Internet Identity authentication and is intended specifically for administrators.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restrict-access-to-the-admin-area-so-that-only-authenticated-admins-can-access-admin-pages-and-ensure-non-admin-users-are-blocked-from-entering-the-admin-area",
+      "title": "Restrict access to the admin area so that only authenticated admins can access admin pages, and ensure non-admin users are blocked from entering the admin area.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-frontend-admin-login-page-to-allow-the-currently-logged-in-internet-identity-to-become-an-administrator-using-the-new-backend-mechanism-and-remove-or-limit-any-existing-ui-that-lets-non-admin-users-provision-themselves-as-admin-from-non-admin-contexts",
+      "title": "Update the frontend admin login page to allow the currently logged-in Internet Identity to become an administrator using the new backend mechanism, and remove or limit any existing UI that lets non-admin users provision themselves as admin from non-admin contexts.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-an-authenticated-administrator-can-reliably-access-the-existing-admin-product-management-page-at-route-admin-products-and-the-admin-orders-page-at-admin-orders-including-after-a-page-refresh-without-being-incorrectly-blocked-by-the-admin-route-guard",
+      "title": "Ensure an authenticated administrator can reliably access the existing admin product management page at route \"/admin/products\" (and the admin orders page at \"/admin/orders\"), including after a page refresh, without being incorrectly blocked by the admin route guard.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-the-admin-login-page-ux-to-make-admin-access-state-and-next-steps-unambiguous-when-the-user-reports-they-are-logged-in-but-cannot-see-the-admin-pages",
+      "title": "Improve the Admin Login page UX to make admin access state and next steps unambiguous when the user reports they are logged in but cannot see the admin pages.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Customer-facing product catalog with product fields: name, price, image, description",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Order placement flow that collects customer name, phone, email, and full address, and shows total estimate (no payment details)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Admin login so only admin can manage products",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Admin product management: add and remove products",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Implement backend data models and persistent storage for products and orders.\n- Product fields: id, name, price, image (URL/path), description, createdAt/updatedAt\n- Order fields: id, items (productId, quantity, unitPriceAtOrder), totalEstimate, customer (name, phone, email, fullAddress), createdAt",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Branding update: set shop name to “Av Kids Wholesale Plaza” and replace the site logo with the uploaded image (apply everywhere: header/admin area/favicon as applicable).",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Admin provisioning: make the currently logged-in Internet Identity principal an admin.",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add business contact details to the site: create a Contact Us page and add a footer section showing phone/WhatsApp, address, and Instagram link.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create a separate dedicated admin login page/route (Internet Identity) and restrict visibility/access so non-admin users are blocked (only admins can enter admin area).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Provide a backend-supported mechanism to make the currently logged-in Internet Identity the administrator, even if a previous admin exists, so the user can regain admin access when they are unable to login as administrator.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Fix or adjust the backend admin-status and role-assignment logic so that the frontend admin status check (actor method \"isCallerAdmin()\") correctly reflects the caller’s admin privileges, and admin privileges persist as expected across canister upgrades/redeploys according to the existing admin policy.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Av Kids Wholesale Plaza",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T09:27:20.279Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-19",
+        "summary": "Ensure an authenticated administrator can reliably access the existing admin product management page at route \"/admin/products\" (and the admin orders page at \"/admin/orders\"), including after a page refresh, without being incorrectly blocked by the admin route guard.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useAdminStatus.ts",
+          "frontend/src/components/auth/AdminRouteGuard.tsx",
+          "frontend/src/components/layout/Header.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useAdminStatus.ts",
+          "frontend/src/components/auth/AdminRouteGuard.tsx",
+          "frontend/src/components/layout/Header.tsx"
+        ]
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Fix or adjust the backend admin-status and role-assignment logic so that the frontend admin status check (actor method \"isCallerAdmin()\") correctly reflects the caller’s admin privileges, and admin privileges persist as expected across canister upgrades/redeploys according to the existing admin policy.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-21",
+        "summary": "Improve the Admin Login page UX to make admin access state and next steps unambiguous when the user reports they are logged in but cannot see the admin pages.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/admin/AdminLoginPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/admin/AdminLoginPage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/components/auth/AdminRouteGuard.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/hooks/useAdminStatus.ts",
+    "frontend/src/pages/admin/AdminLoginPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

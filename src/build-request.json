@@ -1,0 +1,90 @@
+{
+  "kind": "build_request",
+  "title": "Fix admin access so admins can reliably reach the Admin Products page",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-19",
+      "text": "Ensure an authenticated administrator can reliably access the existing admin product management page at route \"/admin/products\" (and the admin orders page at \"/admin/orders\"), including after a page refresh, without being incorrectly blocked by the admin route guard.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Make a page only accessible for admin to add products",
+          "I am unable to see that page",
+          "Yes and I am currently logging as administrator",
+          "Build"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When the user is logged in with Internet Identity and their principal is an admin, navigating directly to /admin/products renders the AdminProductsPage (no redirect, no access denied screen).",
+        "When the user is logged in with Internet Identity and their principal is an admin, navigating directly to /admin/orders renders the AdminOrdersPage.",
+        "AdminRouteGuard does not show an 'Access Denied' state for an admin due to stale/incorrect cached admin status; the guard waits for a definitive admin check tied to the currently authenticated principal."
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "text": "Fix or adjust the backend admin-status and role-assignment logic so that the frontend admin status check (actor method \"isCallerAdmin()\") correctly reflects the caller’s admin privileges, and admin privileges persist as expected across canister upgrades/redeploys according to the existing admin policy.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I am unable to see that page",
+          "Yes and I am currently logging as administrator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Calling the backend admin status method used by the frontend (\"isCallerAdmin()\") returns true for the admin principal(s) and false for non-admin principals.",
+        "Admin status remains consistent after a reload and does not unexpectedly reset for an already-provisioned admin.",
+        "If role assignment for provisioning is supported in the app, the backend enforces the intended policy (e.g., first-admin initialization and/or admin-only granting) and does not allow unauthorized privilege escalation."
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "text": "Improve the Admin Login page UX to make admin access state and next steps unambiguous when the user reports they are logged in but cannot see the admin pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Yes and I am currently logging as administrator",
+          "I am unable to see that page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin Login page clearly shows whether the user is authenticated and whether they are an admin (using English user-facing text).",
+        "Admin Login page includes a clear navigation action to open the admin product management page when admin access is confirmed.",
+        "If the user is authenticated but not an admin, the page clearly communicates that they cannot access admin pages and provides the appropriate next step(s) already supported by the backend (e.g., provisioning only when allowed)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not edit frontend files under immutablePaths (compose existing UI components instead of modifying them).",
+    "Keep all user-facing text in English."
+  ],
+  "nonGoals": [
+    "Do not create a new separate add-product page/route unless required to fix admin access; use the existing /admin/products page.",
+    "Do not add third-party authentication providers; Internet Identity remains the only auth method.",
+    "Do not add real payments."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

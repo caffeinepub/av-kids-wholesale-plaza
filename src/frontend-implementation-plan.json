@@ -1,0 +1,49 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Reliable admin-route access and clearer admin login state",
+  "requirements": [
+    {
+      "id": "REQ-19",
+      "summary": "Make admin route guarding resilient to refresh and avoid false 'Access Denied' due to non-definitive/stale admin status checks for the current authenticated principal.",
+      "acceptanceCriteria": [
+        "When the user is logged in with Internet Identity and their principal is an admin, navigating directly to /admin/products renders the AdminProductsPage (no redirect, no access denied screen).",
+        "When the user is logged in with Internet Identity and their principal is an admin, navigating directly to /admin/orders renders the AdminOrdersPage.",
+        "AdminRouteGuard does not show an 'Access Denied' state for an admin due to stale/incorrect cached admin status; the guard waits for a definitive admin check tied to the currently authenticated principal."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useAdminStatus.ts",
+          "operation": "modify",
+          "description": "Adjust admin-status querying to expose a definitive/indeterminate state (e.g., track whether the admin check for the current authenticated principal has completed, and treat any in-flight refetch as 'checking') so route guards can avoid rendering 'Access Denied' while status is still being resolved. Use the selected 'authorization' component patterns for principal-tied auth state and cache invalidation; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/AdminRouteGuard.tsx",
+          "operation": "modify",
+          "description": "Update AdminRouteGuard to wait for a definitive admin check result associated with the currently authenticated Internet Identity principal before showing an 'Access Denied' state (continue showing a 'Checking permissions...' loading state while the result is unknown/in-flight). This should prevent incorrect blocking after refresh. Use the selected 'authorization' component guidance for access-control UI states; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "modify",
+          "description": "Ensure admin navigation links (Products/Orders) do not misleadingly disappear or appear based on a transient/indeterminate admin check state during refresh (e.g., optionally gate rendering until admin status is definitive, or keep links behind an explicit admin-only section that reflects the resolved state). Use the selected 'authorization' component guidance for auth-dependent UI; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "summary": "Clarify Admin Login page UX to explicitly show authentication vs admin status and provide clear next steps when access is not available.",
+      "acceptanceCriteria": [
+        "Admin Login page clearly shows whether the user is authenticated and whether they are an admin (using English user-facing text).",
+        "Admin Login page includes a clear navigation action to open the admin product management page when admin access is confirmed.",
+        "If the user is authenticated but not an admin, the page clearly communicates that they cannot access admin pages and provides the appropriate next step(s) already supported by the backend (e.g., provisioning only when allowed)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/AdminLoginPage.tsx",
+          "operation": "modify",
+          "description": "Revise the Admin Login page to present a clear, explicit 'Authentication status' and 'Admin access status' summary (e.g., Signed out / Signed in; Checking / Admin confirmed / Not an admin), and provide unambiguous next actions: login/logout controls, 'Open Admin Products' and 'Open Admin Orders' when admin is confirmed, and clear messaging plus the existing provisioning action (only when supported) when authenticated but not an admin. Keep all user-facing text in English. Use the selected 'authorization' component UX guidance for access-denied vs provisioning flows; verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

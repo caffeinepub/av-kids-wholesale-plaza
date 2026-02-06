@@ -1,0 +1,45 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-ensure-an-authenticated-administrator-can-reliably-access-the-existing-admin-product-management-page-at-route-admin-products-and-the-admin-orders-page-at-admin-orders-including-after-a-page-refresh-without-being-incorrectly-blocked-by-the-admin-route-guard",
+      "featureTitle": "Ensure an authenticated administrator can reliably access the existing admin product management page at route \"/admin/products\" (and the admin orders page at \"/admin/orders\"), including after a page refresh, without being incorrectly blocked by the admin route guard.",
+      "files": [
+        "frontend/src/components/auth/AdminRouteGuard.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/hooks/useAdminStatus.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-improve-the-admin-login-page-ux-to-make-admin-access-state-and-next-steps-unambiguous-when-the-user-reports-they-are-logged-in-but-cannot-see-the-admin-pages",
+      "featureTitle": "Improve the Admin Login page UX to make admin access state and next steps unambiguous when the user reports they are logged in but cannot see the admin pages.",
+      "files": [
+        "frontend/src/pages/admin/AdminLoginPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

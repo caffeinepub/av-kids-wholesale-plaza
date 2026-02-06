@@ -1,0 +1,50 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T09:27:20.276Z",
+  "summary": "Frontend changes improve admin-status checking and route-guard behavior by tying the admin check to the currently authenticated principal and waiting for a definitive check before showing access-denied. Admin login page UX appears to be enhanced to display auth/admin status. Backend changes introduce an AccessControl/MixinAuthorization system, but the diff is truncated and does not provide clear evidence that isCallerAdmin() and admin persistence/anti-escalation policy are correctly implemented per requirements.",
+  "missing_requirements": [
+    {
+      "id": "REQ-20",
+      "requirement": "Fix or adjust the backend admin-status and role-assignment logic so that the frontend admin status check (actor method \"isCallerAdmin()\") correctly reflects the caller’s admin privileges, and admin privileges persist as expected across canister upgrades/redeploys according to the existing admin policy.",
+      "reason": "backend/main.mo is truncated and does not show the implementation of isCallerAdmin(), any stable storage / upgrade hooks to persist admin principals across upgrades, nor explicit role-assignment/provisioning policy enforcement to prevent unauthorized privilege escalation. Therefore the acceptance criteria cannot be verified from the provided diff evidence.",
+      "evidence": [
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "requirement": "Admin Login page includes a clear navigation action to open the admin product management page when admin access is confirmed; and if authenticated but not an admin, it clearly communicates they cannot access admin pages and provides appropriate next steps already supported by the backend.",
+      "reason": "AdminLoginPage.tsx diff is truncated before showing the admin-confirmed actions/links and the authenticated-but-not-admin next-step actions. While it clearly shows authentication and admin-access status text, the required navigation action and next steps cannot be confirmed from the truncated snippet.",
+      "evidence": [
+        "frontend/src/pages/admin/AdminLoginPage.tsx (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "AdminRouteGuard now renders full-page UX states (spinner, \"Authentication Required\" screen, and \"Access Denied\" screen) with navigation buttons to /admin/login and /.",
+      "reason": "REQ-19 focuses on ensuring admins are not incorrectly blocked and that the guard waits for a definitive admin check; it does not request new dedicated guard UIs or additional navigation actions from the guard itself.",
+      "evidence": [
+        "frontend/src/components/auth/AdminRouteGuard.tsx"
+      ]
+    },
+    {
+      "description": "Header conditionally shows admin navigation links (Products/Orders) only after a definitive admin check has completed.",
+      "reason": "The BuildRequest does not ask to change the main header/navigation behavior; it specifically targets reliable access to /admin/products and /admin/orders and admin-login UX.",
+      "evidence": [
+        "frontend/src/components/layout/Header.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/components/auth/AdminRouteGuard.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/hooks/useAdminStatus.ts",
+    "frontend/src/pages/admin/AdminLoginPage.tsx",
+    "project_state.json"
+  ]
+}
